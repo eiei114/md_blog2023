@@ -12,7 +12,7 @@ const BlogPost = (props: {
 }) => (
     <div className={styles.container}>
         <div className='prose prose-sm sm:prose lg:prose-lg mx-auto prose-slate'>
-            <img src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
+            <img className="thumbnail" src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
             <div dangerouslySetInnerHTML={{__html: marked(props.content)}}/>
         </div>
     </div>
