@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { marked } from 'marked'
 import Image from 'next/image'
 import React from 'react'
-import { marked } from 'marked'
 import styles from '../../styles/Home.module.css'
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
