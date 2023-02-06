@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import styles from '../styles/Home.module.css'
 import matter from 'gray-matter'
 import fs from 'fs'
 import path from 'path'
+import Link from 'next/link'
+import styles from '../styles/Home.module.css'
 
 const Home = (props: {
   posts: [

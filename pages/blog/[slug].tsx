@@ -1,14 +1,15 @@
+import { marked } from 'marked'
 import React from 'react'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { marked } from 'marked'
 import styles from '../../styles/Home.module.css'
+import Image from 'next/image'
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
   <div className={styles.container}>
     <div className="prose prose-sm sm:prose lg:prose-lg mx-auto prose-slate">
-      <img className="thumbnail" src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
+      <Image className="thumbnail" src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
       <div dangerouslySetInnerHTML={{ __html: marked(props.content) }} />
     </div>
   </div>
