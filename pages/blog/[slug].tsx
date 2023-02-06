@@ -1,10 +1,10 @@
-import { marked } from 'marked'
-import React from 'react'
+import matter from 'gray-matter'
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
-import styles from '../../styles/Home.module.css'
+import { marked } from 'marked'
+import React from 'react'
 import Image from 'next/image'
+import styles from '../../styles/Home.module.css'
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
   <div className={styles.container}>
