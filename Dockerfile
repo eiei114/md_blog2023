@@ -5,6 +5,7 @@ RUN npm install --production=false
 RUN npm run
 
 FROM gcr.io/distroless/nodejs:16
+RUN ls -la
 WORKDIR /app
 COPY --from=build /app/next.config.js ./
 COPY --from=build /app/public ./public
