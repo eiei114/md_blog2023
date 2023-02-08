@@ -1,26 +1,24 @@
+name: Next.js TypeScript Blog CI/CD
+
 on:
   push:
-    branches-ignore:
-      - "main"
-name: Build and Test on Push
+    branches:
+      - main
+
+env:
+  NODE_ENV: production
+
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: docker build
-        run: docker build .
-  run-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and test with Docker
+        uses: docker://node:14
+        env:
+          NODE_ENV: ${{ env.NODE_ENV }}
         with:
-          node-version: 16
-      - name: Install Dependencies
-        run: yarn install
-      - name: Run test
-        run: yarn run test
+          args: sh -c "yarn install && yarn build && yarn test"

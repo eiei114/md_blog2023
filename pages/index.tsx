@@ -26,13 +26,13 @@ const Home = (props: {
 }
 
 export async function getStaticProps() {
-  // Get files from the posts dir
+  // postsディレクトリのファイルを取得
   const files = fs.readdirSync(path.join('posts'))
 
   const posts = files
     .filter((filename) => filename.includes('.md'))
     .map((filename) => {
-      // Create slug
+      // ファイル名から拡張子を除いたものをslugとする
       const slug = filename.replace('.md', '')
 
       const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
