@@ -1,12 +1,9 @@
-name: Next.js TypeScript Blog CI/CD
+name: Node.js CI/CD
 
 on:
   pull_request:
     branches:
       - main
-
-env:
-  NODE_ENV: production
 
 jobs:
   build-and-test:
@@ -18,7 +15,5 @@ jobs:
 
       - name: Build and test with Docker
         uses: docker://node:14
-        env:
-          NODE_ENV: ${{ env.NODE_ENV }}
         with:
-          args: sh -c "yarn install && yarn build && yarn test"
+          args: sh -c "npm install && npm run build && npm test"
