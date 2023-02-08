@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "prettier --write --ignore-path .gitignore .",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "format": "prettier --write --ignore-path .gitignore .",
+    "test": "jest"
   },
   "dependencies": {
     "@next/font": "13.1.6",
@@ -31,9 +32,5 @@
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "prettier": "^2.8.3"
-  },
-  "scripts": {
-    "format": "prettier --write --ignore-path .gitignore .",
-    "test": "jest"
   }
 }
