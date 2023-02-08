@@ -1,7 +1,7 @@
 name: Next.js TypeScript Blog CI/CD
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
