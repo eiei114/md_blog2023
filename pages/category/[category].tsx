@@ -91,7 +91,6 @@ export async function getStaticProps({params: {category}}: { params: { category:
             return {
                 slug,
                 frontMatter,
-                category
             }
         })
 
