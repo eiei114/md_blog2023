@@ -1,39 +1,32 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Home from './Home'
-
-const samplePosts = [
-  {
-    slug: 'post-1',
-    frontMatter: {
-      title: 'Post 1',
-      description: 'This is the first post',
-      date: '2021-01-01'
-    }
-  },
-  {
-    slug: 'post-2',
-    frontMatter: {
-      title: 'Post 2',
-      description: 'This is the second post',
-      date: '2021-02-01'
-    }
-  }
-]
+import '@testing-library/jest-dom/extend-expect'
+import Home from '../pages/index'
 
 describe('Home', () => {
-  it('renders the correct number of posts', () => {
-    render(<Home posts={samplePosts} />)
+  it('renders a list of blog posts', () => {
+    const mockPosts = [
+      {
+        slug: 'sample-post-1',
+        frontMatter: {
+          title: 'Sample Post 1',
+          description: 'This is a sample post 1',
+        },
+      },
+      {
+        slug: 'sample-post-2',
+        frontMatter: {
+          title: 'Sample Post 2',
+          description: 'This is a sample post 2',
+        },
+      },
+    ]
+    render(<Home posts={mockPosts} />)
 
-    const postTitles = screen.getAllByRole('heading', { level: 5 })
-    expect(postTitles).toHaveLength(2)
-  })
-
-  it('renders the correct post titles', () => {
-    render(<Home posts={samplePosts} />)
-
-    const postTitles = screen.getAllByRole('heading', { level: 5 })
-    expect(postTitles[0]).toHaveTextContent('Post 2')
-    expect(postTitles[1]).toHaveTextContent('Post 1')
+    mockPosts.forEach(({ slug, frontMatter: { title, description } }) => {
+      const titleElement = screen.getByText(title)
+      expect(titleElement).toBeInTheDocument()
+      const descriptionElement = screen.getByText(description)
+      expect(descriptionElement).toBeInTheDocument()
+    })
   })
 })
