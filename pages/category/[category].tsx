@@ -46,9 +46,9 @@ const CategoryPost = (props: {
 
 export default CategoryPost
 
-export async function getStaticPaths() {
+const getAllPosts = () => {
     const files = fs.readdirSync(path.join('posts'))
-    const posts = files
+    return files
         .filter((filename) => filename.includes('.md'))
         .map((filename) => {
             const slug = filename.replace('.md', '')
@@ -62,8 +62,12 @@ export async function getStaticPaths() {
                 frontMatter,
             }
         })
+}
 
-    const paths = posts.map(({frontMatter: {category}}) => category)
+export async function getStaticPaths() {
+    const allPosts = getAllPosts();
+
+    const paths = allPosts.map(({frontMatter: {category}}) => category)
         .filter((category, index, self) => self.indexOf(category) === index)
         .map((category) => ({
             params: {
@@ -78,22 +82,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params: {category}}: { params: { category: string } }) {
-    const files = fs.readdirSync(path.join('posts'))
-    const allPosts = files
-        .filter((filename) => filename.includes('.md'))
-        .map((filename) => {
-            const slug = filename.replace('.md', '')
-
-            const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-
-            const {data: frontMatter} = matter(markdownWithMeta)
-
-            return {
-                slug,
-                frontMatter,
-            }
-        })
-
+    const allPosts = getAllPosts();
     const posts = allPosts.filter(({frontMatter: {category: postCategory}}) => postCategory === category)
 
     return {
