@@ -1,12 +1,12 @@
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import Header from "@/pages/components/Header/header";
-import React from "react";
 import Footer from "@/pages/components/Footer/footer";
+import Header from "@/pages/components/Header/header";
 import Sidebar from "@/pages/components/Sidebar/sidebar";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import Link from 'next/link'
+import React from "react";
 
 const Home = (props: {
     posts: [

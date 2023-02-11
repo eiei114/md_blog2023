@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import React from 'react'
-import Header from "@/pages/components/Header/header";
-import styles from "@/styles/Home.module.css";
 import Link from "next/link";
-import Sidebar from "@/pages/components/Sidebar/sidebar";
+import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
+import Header from "@/pages/components/Header/header";
+import Sidebar from "@/pages/components/Sidebar/sidebar";
+import styles from "@/styles/Home.module.css";
 
 const CategoryPost = (props: {
     posts: [
