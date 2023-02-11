@@ -1,28 +1,41 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import Header from "@/pages/components/Header/header";
+import React from "react";
+import Footer from "@/pages/components/Footer/footer";
+import Sidebar from "@/pages/components/Sidebar/sidebar";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
 const Home = (props: {
-  posts: [
-    {
-      slug: string
-      frontMatter: { [key: string]: string }
-    }
-  ]
+    posts: [
+        {
+            slug: string
+            frontMatter: { [key: string]: string }
+        }
+    ]
 }) => {
-  return (
-    <div className={styles.container}>
-      {props.posts.map(({ slug, frontMatter: { title, description } }) => (
-        <Link key={slug} href={`/blog/${slug}`} passHref>
-          <h5>{title}</h5>
-          <p>{description}</p>
-          <hr />
-        </Link>
-      ))}
-    </div>
-  )
+    return (
+        <div>
+            <Header/>
+            <div className={styles.container}>
+                <div>
+                    {props.posts.map(({slug, frontMatter: {title, description}}) => (
+                        <Link key={slug} href={`/blog/${slug}`} passHref>
+                            <h5>{title}</h5>
+                            <p>{description}</p>
+                            <hr/>
+                        </Link>
+                    ))}
+                </div>
+                <div className={styles.sidebar}>
+                    <Sidebar posts={props.posts}/>
+                </div>
+            </div>
+            <Footer/>
+        </div>
+    )
 }
 
 export async function getStaticProps() {

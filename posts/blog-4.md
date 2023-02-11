@@ -1,11 +1,15 @@
 ---
 title: 'Zennトピックまとめ'
 date: '2023-02-07T08:30:44.675Z'
+category : 'Memo'
 description: 'MarkDownでZenn記事を書くのにトピック一覧がなく困ったためまとめた'
 thumbnail: '/img/blog/sebastiaan-stam-H33IhK53rpg-unsplash.jpg'
 ---
+
 [Zenn](https://zenn.dev/keisuke114)
-# 個人的によく使うZennトピック一覧
+
+# 個人的によく使う Zenn トピック一覧
+
 - react
 - typescript
 - docker
@@ -18,4 +22,3 @@ thumbnail: '/img/blog/sebastiaan-stam-H33IhK53rpg-unsplash.jpg'
 - test
 - 個人開発
 - vercel
-
