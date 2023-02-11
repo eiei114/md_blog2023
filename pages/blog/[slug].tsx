@@ -9,7 +9,7 @@ import styles from '../../styles/Home.module.css'
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
   <div className={styles.container}>
     <div className="prose prose-sm sm:prose lg:prose-lg mx-auto prose-slate">
-      <Image className="thumbnail" src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
+      <Image src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
       <div dangerouslySetInnerHTML={{ __html: marked(props.content) }} />
     </div>
   </div>

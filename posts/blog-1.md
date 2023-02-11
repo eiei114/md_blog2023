@@ -1,6 +1,7 @@
 ---
 title: 'はじめに'
 date: '2023-02-06T03:07:44.675Z'
+category : 'Poem'
 description: 'MarkDownブログ作ってみました。'
 thumbnail: '/img/blog/sebastiaan-stam-H33IhK53rpg-unsplash.jpg'
 ---
