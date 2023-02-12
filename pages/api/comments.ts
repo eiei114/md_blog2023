@@ -5,7 +5,7 @@ const supabaseUrl = 'https://bdtegiewrnjqezybwbwo.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkdGVnaWV3cm5qcWV6eWJ3YndvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzYwODI1ODUsImV4cCI6MTk5MTY1ODU4NX0.UZkRodV9ZWbmhNux8jtSxE3xPiyZfZ2HZBpN9BkgeQw';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
-
+/* eslint-disable */
 const CommentsApi = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         // Get all comments
@@ -51,7 +51,8 @@ const CommentsApi = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(405).json({
                 message: "Method Not Allowed",
             });
+            break;
     }
 };
-
+/* eslint-enable */
 export default CommentsApi;

@@ -6,7 +6,6 @@ import Comments from "../pages/components/Comments/Comments";
 import Footer from "../pages/components/Footer/footer";
 import Header from "../pages/components/Header/header";
 import Sidebar from "../pages/components/Sidebar/sidebar";
-import styles from '../styles/Home.module.css'
 
 const Home = (props: {
     posts: [

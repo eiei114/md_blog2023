@@ -1,25 +1,25 @@
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import useSWR from 'swr';
 import {mutate} from "swr";
 
-const fetcher = (url: string) => fetch(url, { method: "GET" }).then((res) => res.json());
-
+const fetcher = (url: string) => fetch(url, {method: "GET"}).then((res) => res.json());
+/* eslint-disable */
 const addCommentRequest = (url: string, data: any) =>
     fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
     }).then((res) => res.json());
 
 const editCommentRequest = (url: string, data: any) =>
     fetch(url, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
     }).then((res) => res.json());
 
 const deleteCommentRequest = (url: string, id: string) =>
-    fetch(`${url}?comment_id=${id}`, { method: "DELETE" }).then((res) => res.json());
+    fetch(`${url}?comment_id=${id}`, {method: "DELETE"}).then((res) => res.json());
 
 interface CommentParams {
     id: string;
@@ -30,10 +30,18 @@ interface CommentParams {
     reply_of?: string;
 }
 
+interface EditCommentParams {
+    id: string;
+    payload: string;
+}
+
 const Comments = () => {
-    const { data: commentList, error: commentListError } = useSWR<CommentParams[]>("/api/comments", fetcher);
+    const {data: commentList, error: commentListError} = useSWR<CommentParams[]>("/api/comments", fetcher);
     const [comment, setComment] = useState<string>("");
-    const [editComment, setEditComment] = useState<EditCommentParams>({id: "", payload: ""});
+    const [editComment, setEditComment] = useState<EditCommentParams>({
+        id: "",
+        payload: ""
+    });
     const [replyOf, setReplyOf] = useState<string | null>(null);
 
     const confirmDelete = async (id: string) => {
@@ -59,25 +67,24 @@ const Comments = () => {
 
     const confirmEdit = async () => {
         const editData = {
-            payload: editComment.payload,
             commentId: editComment.id,
+            payload: editComment.payload,
         };
         if (typeof commentList !== "undefined") {
             mutate(
                 "api/comments",
                 commentList.map((comment) => {
                     if (comment.id === editData.commentId) {
-                        return { ...comment, payload: editData.payload };
+                        return {...comment, payload: editData.payload};
                     }
                 }),
                 false
             );
             const response = await editCommentRequest("api/comments", editData);
-            console.log(response);
             if (response[0].created_at) {
                 mutate("api/comments");
                 window.alert("Hooray!");
-                setEditComment({ id: "", payload: "" });
+                setEditComment({ id: "", payload: ""});
             }
         }
     };
@@ -113,14 +120,15 @@ const Comments = () => {
                     {replyOf && (
                         <div className="flex items-center">
                             <p className="mr-4">
-                                Reply of:  {commentList?.find((comment) => comment.id === replyOf)?.payload ?? ""}
+                                Reply of: {commentList?.find((comment) => comment.id === replyOf)?.payload ?? ""}
                             </p>
                             <button onClick={() => setReplyOf(null)} className="btn btn-sm">
                                 Cancel
                             </button>
                         </div>
                     )}
-                    <input className="border p-2 mb-4" onChange={onChange} value={comment} type="text" placeholder="Add a comment"/>
+                    <input className="border p-2 mb-4" onChange={onChange} value={comment} type="text"
+                           placeholder="Add a comment"/>
                     <button className="bg-blue-500 text-white p-2 rounded">Submit</button>
                 </form>
                 <div className="flex flex-col">
@@ -159,7 +167,9 @@ const Comments = () => {
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    onClick={() => setEditComment({id: "", payload: ""})}
+                                                    onClick={() => setEditComment({
+                                                        id: "", payload: ""
+                                                    })}
                                                     className="bg-red-500 text-white p-2 rounded">
                                                     Cancel
                                                 </button>
@@ -195,5 +205,5 @@ const Comments = () => {
         </div>
     )
 }
-
+/* eslint-enable */
 export default Comments
