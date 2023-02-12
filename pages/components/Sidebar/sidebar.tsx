@@ -11,16 +11,16 @@ const SideBar = (props: {
     }
     return (
         <aside>
-            <div>
-                <h3>Categories</h3>
-                <ul>
+            <div className="w-full lg:w-1/4 lg:px-4">
+                <h3 className="text-lg font-medium">Categories</h3>
+                <ul className="mt-4">
                     <div>
                         {props.posts
                             .map(({frontMatter: {category}}) => category)
                             .filter((category, index, self) => self.indexOf(category) === index)
                             .map((category) => (
                                 <Link key={category} href={`/category/${category}`} passHref>
-                                    <li>{category}</li>
+                                    <li className="my-2">{category}</li>
                                 </Link>
                             ))}
                     </div>
