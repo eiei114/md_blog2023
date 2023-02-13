@@ -7,12 +7,12 @@ import React from 'react'
 import styles from '../../styles/Home.module.css'
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
-  <div className={styles.container}>
-    <div className="prose prose-sm sm:prose lg:prose-lg mx-auto prose-slate">
-      <Image src={props.frontMatter.thumbnail} alt={props.frontMatter.title} />
-      <div dangerouslySetInnerHTML={{ __html: marked(props.content) }} />
+    <div className="flex flex-col md:flex-row">
+      <div className="md:w-3/4">
+        <Image src={props.frontMatter.thumbnail} alt={props.frontMatter.title} className="object-cover w-full h-64 md:h-128" />
+        <div className="mt-4" dangerouslySetInnerHTML={{ __html: marked(props.content) }} />
+      </div>
     </div>
-  </div>
 )
 
 export default BlogPost
