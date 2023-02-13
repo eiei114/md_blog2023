@@ -37,6 +37,7 @@ interface EditCommentParams {
 const Comments = () => {
     const {data: commentList, error: commentListError} = useSWR<CommentParams[]>("/api/comments", fetcher);
     const [comment, setComment] = useState<string>("");
+    const [username, setUsername] = useState("");
     const [editComment, setEditComment] = useState<EditCommentParams>({id: "", payload: ""});
     const [replyOf, setReplyOf] = useState<string | null>(null);
 
@@ -90,10 +91,14 @@ const Comments = () => {
         setComment(commentValue);
     };
 
+    const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value === "" ? "anonymous" : event.target.value);
+    };
+
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const newComment = {
-            username: "hoonwee@email.com",
+            username: username === "" ? "anonymous" : username,
             payload: comment,
             reply_of: replyOf,
         };
@@ -104,9 +109,11 @@ const Comments = () => {
                 mutate("/api/comments");
                 window.alert("Hooray!");
             }
-            setComment("")
+            setComment("");
+            setUsername("");
         }
     };
+
 
     return (
         <div className="container mx-auto">
@@ -123,6 +130,7 @@ const Comments = () => {
                             </button>
                         </div>
                     )}
+                    <input className="border p-2 mb-4" onChange={onUsernameChange} value={username} type="text" placeholder="The default name is 'anonymous'"/>
                     <input className="border p-2 mb-4" onChange={onChange} value={comment} type="text"
                            placeholder="Add a comment"/>
                     <button className="bg-blue-500 text-white p-2 rounded">Submit</button>
@@ -141,10 +149,7 @@ const Comments = () => {
                                     </p>
                                 }
                                 <p className="mb-2">
-                                    {comment.username}
-                                    {comment.updated_at !== comment.created_at && (
-                                        <span className="ml-4 text-sm italic font-extralight">edited</span>
-                                    )}
+                                    {comment.username} - ID:{comment.id} - {comment.created_at}
                                 </p>
                                 <div className="flex flex-col">
                                     {editComment.id === comment.id ? (
@@ -155,33 +160,7 @@ const Comments = () => {
                                         <p className="mb-2">{comment.payload}</p>
                                     )}
                                     <div className="flex">
-                                        {editComment.id === comment.id ? (
                                             <>
-                                                <button type="button" onClick={confirmEdit}
-                                                        className="bg-green-500 text-white p-2 mr-2 rounded">
-                                                    Confirm
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setEditComment({
-                                                        id: "", payload: ""
-                                                    })}
-                                                    className="bg-red-500 text-white p-2 rounded">
-                                                    Cancel
-                                                </button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setEditComment({
-                                                        id: comment.id,
-                                                        payload: comment.payload
-                                                    })}
-                                                    className="bg-blue-500 text-white p-2 mr-2 rounded"
-                                                >
-                                                    Edit
-                                                </button>
                                                 <button type="button" onClick={() => confirmDelete(comment.id)}
                                                         className="bg-red-500 text-white p-2 mr-2 rounded">
                                                     Delete
@@ -191,7 +170,6 @@ const Comments = () => {
                                                     Reply
                                                 </button>
                                             </>
-                                        )}
                                     </div>
                                 </div>
                             </div>
