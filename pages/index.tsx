@@ -1,11 +1,9 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import Link from 'next/link'
 import Comments from "../pages/components/Comments/Comments";
 import Footer from "../pages/components/Footer/footer";
 import Header from "../pages/components/Header/header";
 import Sidebar from "../pages/components/Sidebar/sidebar";
+import {getAllPosts} from "@/utils/post-data";
 
 const Home = (props: {
     posts: [
@@ -45,25 +43,7 @@ const Home = (props: {
 }
 
 export async function getStaticProps() {
-    // postsディレクトリのファイルを取得
-    const files = fs.readdirSync(path.join('posts'))
-
-    const posts = files
-        .filter((filename) => filename.includes('.md'))
-        .map((filename) => {
-            // ファイル名から拡張子を除いたものをslugとする
-            const slug = filename.replace('.md', '')
-
-            const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-
-            const {data: frontMatter} = matter(markdownWithMeta)
-
-            return {
-                slug,
-                frontMatter,
-            }
-        })
-        .sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime())
+    const posts = getAllPosts().sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
 
     return {
         props: {

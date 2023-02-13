@@ -20,7 +20,6 @@ docker-compose up -d --build で以下のエラーが出る件について。
 
 ## とりあえず探索したリンクをまとめる
 
-- https://wp.kobore.net/%E6%B1%9F%E7%AB%AF%E3%81%95%E3%82%93%E3%81%AE%E6%8A%80%E8%A1%93%E3%83%A1%E3%83%A2/post-1989/
 - https://qiita.com/noname_303/items/d025cf8ac816167fbe1f
 - https://stackoverflow.com/questions/74804296/docker-endpoint-for-default-not-found
 - https://qiita.com/kooohei/items/0e788a2ce8c30f9dba53

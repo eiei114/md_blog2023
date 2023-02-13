@@ -22,7 +22,7 @@ const AboutPage = (props: {
                 <div className="w-full md:w-1/3 p-4">
                     <h2 className="font-bold text-lg">このブログについて</h2>
                     <p>このブログは、大学生であり、主にUnityエンジニアを主戦場としている自分のブログです。</p>
-                    <p>最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p> // eslint-disable-line
+                    <p>最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p>
                     <p>このブログでは、技術的な内容や自分自身の近況などを投稿しています。</p>
                     <p>また、このブログはNextjsを利用して作成しています。Nextjsの学習のために作成したブログです。</p>
                 </div>
@@ -37,7 +37,7 @@ const AboutPage = (props: {
                 </div>
                 <div className="w-full md:w-1/3 p-4">
                     <h2 className="font-bold text-lg">自己紹介</h2>
-                    <p>私は大学生であり、主にUnityエンジニアを主戦場としています。最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p> // eslint-disable-line
+                    <p>私は大学生であり、主にUnityエンジニアを主戦場としています。最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p>
                 </div>
             <div className="md:w-1/4">
                     <Sidebar posts={props.posts}/>
