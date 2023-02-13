@@ -4,7 +4,6 @@ import matter from 'gray-matter'
 import { marked } from 'marked'
 import Image from 'next/image'
 import React from 'react'
-import styles from '../../styles/Home.module.css'
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
     <div className="flex flex-col md:flex-row">
