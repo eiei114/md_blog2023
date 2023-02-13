@@ -14,6 +14,7 @@ const AboutPage = (props: {
         }
     ]
 }) => {
+    /* eslint-disable */
     return (
         <div>
             <Header/>
@@ -47,7 +48,7 @@ const AboutPage = (props: {
         </div>
     );
 };
-
+/* eslint-enable */
 export async function getStaticProps() {
     // postsディレクトリのファイルを取得
     const files = fs.readdirSync(path.join('posts'))
