@@ -1,6 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import useSWR from 'swr';
-import {mutate} from "swr";
+import useSWR, { mutate } from 'swr'
 
 const fetcher = (url: string) => fetch(url, {method: "GET"}).then((res) => res.json());
 /* eslint-disable */
@@ -38,23 +37,20 @@ interface EditCommentParams {
 const Comments = () => {
     const {data: commentList, error: commentListError} = useSWR<CommentParams[]>("/api/comments", fetcher);
     const [comment, setComment] = useState<string>("");
-    const [editComment, setEditComment] = useState<EditCommentParams>({
-        id: "",
-        payload: ""
-    });
+    const [editComment, setEditComment] = useState<EditCommentParams>({id: "", payload: ""});
     const [replyOf, setReplyOf] = useState<string | null>(null);
 
     const confirmDelete = async (id: string) => {
         const ok = window.confirm("Delete comment?");
         if (ok && typeof commentList !== "undefined") {
             mutate(
-                "api/comments",
+                "/api/comments",
                 commentList.filter((comment) => comment.id !== id),
                 false
             );
-            const response = await deleteCommentRequest("api/comments", id);
-            if (response[0].created_at) {
-                mutate("api/comments");
+            const response = await deleteCommentRequest("/api/comments", id);
+            if (response && response[0] && response[0].created_at) {
+                mutate("/api/comments");
                 window.alert("Deleted Comment :)");
             }
         }
@@ -72,7 +68,7 @@ const Comments = () => {
         };
         if (typeof commentList !== "undefined") {
             mutate(
-                "api/comments",
+                "/api/comments",
                 commentList.map((comment) => {
                     if (comment.id === editData.commentId) {
                         return {...comment, payload: editData.payload};
@@ -80,9 +76,9 @@ const Comments = () => {
                 }),
                 false
             );
-            const response = await editCommentRequest("api/comments", editData);
-            if (response[0].created_at) {
-                mutate("api/comments");
+            const response = await editCommentRequest("/api/comments", editData);
+            if (response && response[0] && response[0].created_at) {
+                mutate("/api/comments");
                 window.alert("Hooray!");
                 setEditComment({ id: "", payload: ""});
             }
@@ -102,13 +98,13 @@ const Comments = () => {
             reply_of: replyOf,
         };
         if (typeof commentList !== "undefined") {
-            mutate("api/comments", [...commentList, newComment], false);
-            const response = await addCommentRequest("api/comments", newComment);
-            if (response[0].created_at) {
-                mutate("api/comments");
+            mutate("/api/comments", [...commentList, newComment], false);
+            const response = await addCommentRequest("/api/comments", newComment);
+            if (response && response[0] && response[0].created_at) {
+                mutate("/api/comments");
                 window.alert("Hooray!");
-                setComment("")
             }
+            setComment("")
         }
     };
 
