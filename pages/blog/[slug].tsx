@@ -6,7 +6,6 @@ import Image from 'next/image'
 import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
 import Header from "@/pages/components/Header/header";
-import {getPaths} from "@/utils/post-data";
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
     <div>
@@ -26,7 +25,15 @@ export default BlogPost
 
 export async function getStaticPaths() {
 
-    const paths = getPaths()
+    const files = fs.readdirSync(path.join('posts'))
+
+    const paths = files
+        .filter((filename) => filename.includes('.md'))
+        .map((filename) => ({
+            params: {
+                slug: filename.replace('.md', ''),
+            },
+        }))
 
     return {
         paths,
