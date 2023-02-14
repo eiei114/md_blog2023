@@ -1,8 +1,8 @@
 import {getAuth, signOut} from "firebase/auth";
 import Link from "next/link";
 import {FC, useContext} from "react";
-import {AuthContext} from "@/context/Auth";
 import {FaClipboard, FaGithub, FaPenNib, FaTwitter} from "react-icons/fa";
+import {AuthContext} from "@/context/Auth";
 
 const Header: FC = () => {
     const {currentUser} = useContext(AuthContext);
