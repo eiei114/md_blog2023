@@ -2,6 +2,7 @@ import {getAuth, signOut} from "firebase/auth";
 import Link from "next/link";
 import {FC, useContext} from "react";
 import {AuthContext} from "@/context/Auth";
+import {FaClipboard, FaGithub, FaPenNib, FaTwitter} from "react-icons/fa";
 
 const Header: FC = () => {
     const {currentUser} = useContext(AuthContext);
@@ -53,6 +54,20 @@ const Header: FC = () => {
                     )}
                 </div>
             </nav>
+            <div className="flex justify-center">
+                <a href="https://twitter.com/KEisuke62350514" className="text-white mx-2 hover:text-gray-500">
+                    <FaTwitter size={24} />
+                </a>
+                <a href="https://github.com/eiei114" className="text-white mx-2 hover:text-gray-500">
+                    <FaGithub size={24} />
+                </a>
+                <a href="https://zenn.dev/keisuke114" className="text-white mx-2 hover:text-gray-500">
+                    <FaPenNib size={24} />
+                </a>
+                <a href="https://spot-camelotia-ca8.notion.site/Portfolio-66f9a6d667d84785afe1cecfea0fd2ab" className="text-white mx-2 hover:text-gray-500">
+                    <FaClipboard size={24} />
+                </a>
+            </div>
         </header>
     );
 };
