@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
+import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
 import Header from "@/pages/components/Header/header";
 import Sidebar from "@/pages/components/Sidebar/sidebar";
 import {getAllPosts} from "@/utils/post-data";
@@ -21,6 +22,7 @@ const CategoryPost = (props: {
 }) => {
     return (
         <div>
+            <GoogleAnalytics/>
             <Header/>
             <div className="flex flex-col md:flex-row">
                 <div className="md:w-3/4">
