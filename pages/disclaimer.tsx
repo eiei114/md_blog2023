@@ -1,7 +1,7 @@
 import React from "react";
+import Footer from "@/pages/components/Footer/footer";
 import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
 import Header from "@/pages/components/Header/header";
-import Footer from "@/pages/components/Footer/footer";
 
 const Disclaimer = () => {
     return (
