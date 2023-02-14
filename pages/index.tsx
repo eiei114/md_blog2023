@@ -12,10 +12,16 @@ const Home = (props: {
             slug: string
             frontMatter: {
                 [key: string]: string
-                category: string
             };
         }
-    ]
+    ],
+    postsWithCategory: [{
+        frontMatter: {
+            [key: string]: string
+            category: string
+        };
+    }]
+
 }) => {
     return (
         <div>
@@ -24,7 +30,7 @@ const Home = (props: {
             <div className="flex flex-col md:flex-row">
                 <BlogList posts={props.posts}/>
                 <div className="md:w-1/4">
-                    <Sidebar posts={props.posts}/>
+                    <Sidebar posts={props.postsWithCategory}/>
                 </div>
             </div>
             <div className="mt-8">
@@ -37,9 +43,11 @@ const Home = (props: {
 
 export async function getStaticProps() {
     const posts = getAllPosts().sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
+    const postsWithCategory = getAllPosts();
     return {
         props: {
-            posts
+            posts,
+            postsWithCategory
         },
     }
 }
