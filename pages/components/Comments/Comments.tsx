@@ -1,5 +1,6 @@
-import {ChangeEvent, FormEvent, useState} from "react";
-import useSWR, { mutate } from 'swr'
+import {ChangeEvent, FC, FormEvent, useContext, useState} from "react";
+import useSWR, {mutate} from 'swr'
+import {AuthContext} from "@/context/Auth";
 
 const fetcher = (url: string) => fetch(url, {method: "GET"}).then((res) => res.json());
 /* eslint-disable */
@@ -34,7 +35,8 @@ interface EditCommentParams {
     payload: string;
 }
 
-const Comments = () => {
+const Comments: FC = () => {
+    const {currentUser} = useContext(AuthContext);
     const {data: commentList, error: commentListError} = useSWR<CommentParams[]>("/api/comments", fetcher);
     const [comment, setComment] = useState<string>("");
     const [username, setUsername] = useState("");
@@ -81,7 +83,7 @@ const Comments = () => {
             if (response && response[0] && response[0].created_at) {
                 mutate("/api/comments");
                 window.alert("Hooray!");
-                setEditComment({ id: "", payload: ""});
+                setEditComment({id: "", payload: ""});
             }
         }
     };
@@ -119,22 +121,29 @@ const Comments = () => {
         <div className="container mx-auto">
             <div className="flex flex-col w-full">
                 <h1 className="text-2xl font-extrabold mb-4">Comments</h1>
-                <form onSubmit={onSubmit} className="flex flex-col">
-                    {replyOf && (
-                        <div className="flex items-center">
-                            <p className="mr-4">
-                                Reply of: {commentList?.find((comment) => comment.id === replyOf)?.payload ?? ""}
-                            </p>
-                            <button onClick={() => setReplyOf(null)} className="btn btn-sm">
-                                Cancel
-                            </button>
-                        </div>
-                    )}
-                    <input className="border p-2 mb-4" onChange={onUsernameChange} value={username} type="text" placeholder="The default name is 'anonymous'"/>
-                    <input className="border p-2 mb-4" onChange={onChange} value={comment} type="text"
-                           placeholder="Add a comment"/>
-                    <button className="bg-blue-500 text-white p-2 rounded">Submit</button>
-                </form>
+                {currentUser ? (
+                    <form onSubmit={onSubmit} className="flex flex-col mb-4">
+                        {replyOf && (
+                            <div className="flex items-center">
+                                <p className="mr-4">
+                                    Reply of: {commentList?.find((comment) => comment.id === replyOf)?.payload ?? ""}
+                                </p>
+                                <button onClick={() => setReplyOf(null)} className="btn btn-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        )}
+                        <input className="border p-2 mb-4" onChange={onUsernameChange} value={username} type="text"
+                               placeholder="The default name is 'anonymous'"/>
+                        <input className="border p-2 mb-4" onChange={onChange} value={comment} type="text"
+                               placeholder="Add a comment"/>
+                        <button className="bg-blue-500 text-white p-2 rounded">Submit</button>
+                    </form>
+                ) : (
+                    <div className="flex flex-col">
+                        <p className="text-sm mb-2">ログインするとコメントが投稿できます！</p>
+                    </div>
+                )}
                 <div className="flex flex-col">
                     {(commentList ?? [])
                         .sort((a, b) => {
@@ -142,7 +151,7 @@ const Comments = () => {
                             const bDate = new Date(b.created_at);
                             return +aDate - +bDate;
                         }).map((comment) => (
-                            <div key={comment.id} className="mb-4">
+                            <div key={comment.id} className="border border-gray-200 rounded p-4 mb-4">
                                 {comment.reply_of &&
                                     <p className="text-sm mb-2">
                                         Reply of: {commentList?.find((c) => c.id === comment.reply_of)?.payload ?? ""}
@@ -159,18 +168,21 @@ const Comments = () => {
                                     ) : (
                                         <p className="mb-2">{comment.payload}</p>
                                     )}
+                                    {currentUser ? (
                                     <div className="flex">
-                                            <>
-                                                <button type="button" onClick={() => confirmDelete(comment.id)}
-                                                        className="bg-red-500 text-white p-2 mr-2 rounded">
-                                                    Delete
-                                                </button>
-                                                <button type="button" onClick={() => setReplyOf(comment.id)}
-                                                        className="bg-green-500 text-white p-2 mr-2 rounded">
-                                                    Reply
-                                                </button>
-                                            </>
+                                        <>{(currentUser.email === "ekawano114@gmail.com" ? (
+                                            <button type="button" onClick={() => confirmDelete(comment.id)}
+                                                    className="bg-red-500 text-white p-2 mr-2 rounded">
+                                                Delete
+                                            </button>
+                                            ):null )}
+                                            <button type="button" onClick={() => setReplyOf(comment.id)}
+                                                    className="bg-green-500 text-white p-2 mr-2 rounded">
+                                                Reply
+                                            </button>
+                                        </>
                                     </div>
+                                ) : null}
                                 </div>
                             </div>
                         ))}
