@@ -1,11 +1,10 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import Link from "next/link";
 import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
 import Header from "@/pages/components/Header/header";
 import Sidebar from "@/pages/components/Sidebar/sidebar";
+import {getAllPosts} from "@/utils/post-data";
+import GoogleAnalytics from "pages/components/Google/googleAnalytics";
 
 const CategoryPost = (props: {
     posts: [
@@ -23,6 +22,7 @@ const CategoryPost = (props: {
 }) => {
     return (
         <div>
+            <GoogleAnalytics/>
             <Header/>
             <div className="flex flex-col md:flex-row">
                 <div className="md:w-3/4">
@@ -48,24 +48,6 @@ const CategoryPost = (props: {
 }
 
 export default CategoryPost
-
-const getAllPosts = () => {
-    const files = fs.readdirSync(path.join('posts'))
-    return files
-        .filter((filename) => filename.includes('.md'))
-        .map((filename) => {
-            const slug = filename.replace('.md', '')
-
-            const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-
-            const {data: frontMatter} = matter(markdownWithMeta)
-
-            return {
-                slug,
-                frontMatter,
-            }
-        })
-}
 
 export async function getStaticPaths() {
     const allPosts = getAllPosts();
