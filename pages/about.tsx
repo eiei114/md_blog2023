@@ -1,17 +1,17 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import React from 'react';
 import Footer from "../pages/components/Footer/footer";
 import GoogleAnalytics from "../pages/components/Google/googleAnalytics";
 import Header from "../pages/components/Header/header";
 import Sidebar from "../pages/components/Sidebar/sidebar";
+import {getAllPosts} from "@/utils/post-data";
 
 const AboutPage = (props: {
     posts: [
         {
-            slug: string
-            frontMatter: { [key: string]: string }
+            frontMatter: {
+                [key: string]: string;
+                category: string;
+            }
         }
     ]
 }) => {
@@ -41,7 +41,7 @@ const AboutPage = (props: {
                     <h2 className="font-bold text-lg">自己紹介</h2>
                     <p>私は大学生であり、主にUnityエンジニアを主戦場としています。最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p>
                 </div>
-            <div className="md:w-1/4">
+                <div className="md:w-1/4">
                     <Sidebar posts={props.posts}/>
                 </div>
             </div>
@@ -50,27 +50,10 @@ const AboutPage = (props: {
         </div>
     );
 };
+
 /* eslint-enable */
 export async function getStaticProps() {
-    // postsディレクトリのファイルを取得
-    const files = fs.readdirSync(path.join('posts'))
-
-    const posts = files
-        .filter((filename) => filename.includes('.md'))
-        .map((filename) => {
-            // ファイル名から拡張子を除いたものをslugとする
-            const slug = filename.replace('.md', '')
-
-            const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-
-            const {data: frontMatter} = matter(markdownWithMeta)
-
-            return {
-                slug,
-                frontMatter,
-            }
-        })
-        .sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime())
+    const posts = getAllPosts().sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
 
     return {
         props: {
