@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Home from '../pages/index'
-
-describe('Home', () => {
+import BlogList from "../pages/components/BlogList/blogList";
+describe('BlogList', () => {
   it('renders a list of blog posts', () => {
     const mockPosts = [
       {
@@ -20,7 +19,7 @@ describe('Home', () => {
         },
       },
     ]
-    render(<Home posts={mockPosts} />)
+    render(<BlogList posts={mockPosts} />)
 
     mockPosts.forEach(({ slug, frontMatter: { title, description } }) => {
       const titleElement = screen.getByText(title)

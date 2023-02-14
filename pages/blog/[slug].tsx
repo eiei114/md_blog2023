@@ -14,9 +14,10 @@ const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string;
         <Header/>
         <div className="flex flex-col md:flex-row">
             <div className="md:w-3/4">
-                <Image src={props.frontMatter.thumbnail} alt={props.frontMatter.title}
-                       className="object-cover w-full h-64 md:h-128"/>
-                <div className="mt-4" dangerouslySetInnerHTML={{__html: marked(props.content)}}/>
+                <Image src={props.frontMatter.thumbnail} alt={props.frontMatter.title} className="object-cover w-full h-64 md:h-128"/>
+                <div className="mt-4">
+                    <div dangerouslySetInnerHTML={{__html: marked(props.content)}} />
+                </div>
             </div>
         </div>
         <Footer/>
