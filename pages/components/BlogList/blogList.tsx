@@ -11,6 +11,9 @@ interface BlogListProps {
 }
 
 const BlogList: FC<BlogListProps> = ({posts}) => {
+    if (!posts || posts.length === 0) {
+        return <p>No posts found.</p>;
+    }
     return (
         <div className="md:w-3/4">
             {posts.map(({slug, frontMatter: {title, description}}) => (
