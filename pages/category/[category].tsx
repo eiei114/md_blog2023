@@ -15,7 +15,6 @@ const CategoryPost = (props: {
     ],
     allPosts: [
         {
-            slug: string
             frontMatter: { [key: string]: string
             category: string
             };

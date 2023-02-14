@@ -6,12 +6,12 @@ import Sidebar from "../pages/components/Sidebar/sidebar";
 import {getAllPosts} from "@/utils/post-data";
 
 const AboutPage = (props: {
-    posts: [
+    postsWithCategory: [
         {
             frontMatter: {
                 [key: string]: string;
                 category: string;
-            }
+            };
         }
     ]
 }) => {
@@ -42,7 +42,7 @@ const AboutPage = (props: {
                     <p>私は大学生であり、主にUnityエンジニアを主戦場としています。最近はNextjs,TypeScriptなどを利用してwebアプリを作ることにハマっています。技術検証系のコミュニティ"MidraLab"を知り合いと立ち上げました。</p>
                 </div>
                 <div className="md:w-1/4">
-                    <Sidebar posts={props.posts}/>
+                    <Sidebar posts={props.postsWithCategory}/>
                 </div>
             </div>
 
@@ -53,11 +53,11 @@ const AboutPage = (props: {
 
 /* eslint-enable */
 export async function getStaticProps() {
-    const posts = getAllPosts().sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
+    const postsWithCategory = getAllPosts().sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
 
     return {
         props: {
-            posts,
+            postsWithCategory,
         },
     }
 }
