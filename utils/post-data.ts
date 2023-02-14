@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import slug from "@/pages/blog/[slug]";
 
 export const getAllPosts = () => {
     const files = fs.readdirSync(path.join('posts'))

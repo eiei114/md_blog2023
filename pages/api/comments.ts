@@ -1,9 +1,9 @@
+import * as process from "process";
 import { createClient } from "@supabase/supabase-js";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const supabaseUrl = 'https://bdtegiewrnjqezybwbwo.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkdGVnaWV3cm5qcWV6eWJ3YndvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzYwODI1ODUsImV4cCI6MTk5MTY1ODU4NX0.UZkRodV9ZWbmhNux8jtSxE3xPiyZfZ2HZBpN9BkgeQw';
-
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
 export const supabase = createClient(supabaseUrl, supabaseKey);
 /* eslint-disable */
 const CommentsApi = async (req: NextApiRequest, res: NextApiResponse) => {
