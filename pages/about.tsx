@@ -3,9 +3,9 @@ import path from "path";
 import matter from "gray-matter";
 import React from 'react';
 import Footer from "../pages/components/Footer/footer";
+import GoogleAnalytics from "../pages/components/Google/googleAnalytics";
 import Header from "../pages/components/Header/header";
 import Sidebar from "../pages/components/Sidebar/sidebar";
-import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
 
 const AboutPage = (props: {
     posts: [

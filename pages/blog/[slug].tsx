@@ -5,8 +5,8 @@ import {marked} from 'marked'
 import Image from 'next/image'
 import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
-import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
 import Header from "@/pages/components/Header/header";
+import GoogleAnalytics from "pages/components/Google/googleAnalytics";
 
 const BlogPost = (props: { frontMatter: { [key: string]: string }; slug: string; content: string }) => (
     <div>

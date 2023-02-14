@@ -1,4 +1,4 @@
-import {GA_ID} from "@/utils/gtag";
+import {GA_ID} from "../../../utils/gtag";
 
 const GoogleAnalytics = () => (
     <div>

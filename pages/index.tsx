@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Comments from "../pages/components/Comments/Comments";
 import Footer from "../pages/components/Footer/footer";
+import GoogleAnalytics from "../pages/components/Google/googleAnalytics";
 import Header from "../pages/components/Header/header";
 import Sidebar from "../pages/components/Sidebar/sidebar";
-import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
-import {getAllPosts} from "@/utils/post-data";
+import {getAllPosts} from "../utils/post-data";
 
 const Home = (props: {
     posts: [

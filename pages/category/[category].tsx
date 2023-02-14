@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from 'react'
 import Footer from "@/pages/components/Footer/footer";
-import GoogleAnalytics from "@/pages/components/Google/googleAnalytics";
 import Header from "@/pages/components/Header/header";
 import Sidebar from "@/pages/components/Sidebar/sidebar";
 import {getAllPosts} from "@/utils/post-data";
+import GoogleAnalytics from "pages/components/Google/googleAnalytics";
 
 const CategoryPost = (props: {
     posts: [
