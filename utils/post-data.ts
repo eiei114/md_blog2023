@@ -19,20 +19,3 @@ export const getAllPosts = () => {
             }
         })
 }
-
-export async function getPaths() {
-    const files = fs.readdirSync(path.join('posts'))
-
-    const paths = files
-        .filter((filename) => filename.includes('.md'))
-        .map((filename) => ({
-            params: {
-                slug: filename.replace('.md', ''),
-            },
-        }))
-
-    return {
-        paths,
-        fallback: false,
-    }
-}
