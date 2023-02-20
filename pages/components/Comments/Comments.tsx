@@ -46,14 +46,14 @@ const Comments: FC = () => {
     const confirmDelete = async (id: string) => {
         const ok = window.confirm("Delete comment?");
         if (ok && typeof commentList !== "undefined") {
-            mutate(
+            await mutate(
                 "/api/comments",
                 commentList.filter((comment) => comment.id !== id),
                 false
             );
             const response = await deleteCommentRequest("/api/comments", id);
-            if (response && response[0] && response[0].created_at) {
-                mutate("/api/comments");
+            if (response[0].created_at) {
+                await mutate("/api/comments");
                 window.alert("Deleted Comment :)");
             }
         }
@@ -70,7 +70,7 @@ const Comments: FC = () => {
             payload: editComment.payload,
         };
         if (typeof commentList !== "undefined") {
-            mutate(
+            await mutate(
                 "/api/comments",
                 commentList.map((comment) => {
                     if (comment.id === editData.commentId) {
@@ -80,8 +80,8 @@ const Comments: FC = () => {
                 false
             );
             const response = await editCommentRequest("/api/comments", editData);
-            if (response && response[0] && response[0].created_at) {
-                mutate("/api/comments");
+            if (response[0].created_at) {
+                await mutate("/api/comments");
                 window.alert("Hooray!");
                 setEditComment({id: "", payload: ""});
             }
@@ -105,14 +105,14 @@ const Comments: FC = () => {
             reply_of: replyOf,
         };
         if (typeof commentList !== "undefined") {
-            mutate("/api/comments", [...commentList, newComment], false);
+            await mutate("/api/comments", [...commentList, newComment], false);
             const response = await addCommentRequest("/api/comments", newComment);
-            if (response && response[0] && response[0].created_at) {
-                mutate("/api/comments");
+            if (response[0].created_at) {
+                await mutate("/api/comments");
                 window.alert("Hooray!");
+                setComment("");
+                setUsername("");
             }
-            setComment("");
-            setUsername("");
         }
     };
 
@@ -146,7 +146,7 @@ const Comments: FC = () => {
                 )}
                 <div className="flex flex-col">
                     {(commentList ?? [])
-                        .sort((a, b) => {
+                        .sort((b,a ) => {
                             const aDate = new Date(a.created_at);
                             const bDate = new Date(b.created_at);
                             return +aDate - +bDate;
